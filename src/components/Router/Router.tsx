@@ -3,9 +3,9 @@ import { RouteObject, useRoutes, BrowserRouter } from 'react-router-dom';
 import Loader from 'src/components/ui/Loader.tsx';
 
 const Loading = () => (
-  <p className="p-4 w-full h-full text-center">
+  <div className="">
     <Loader />
-  </p>
+  </div> 
 );
 
 const IndexPage = lazy(() => import('src/components/pages/IndexPage'));

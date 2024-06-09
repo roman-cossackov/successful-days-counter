@@ -1,5 +1,5 @@
 import { signInWithPopup } from 'firebase/auth';
-import { GoogleAuthProvider } from 'firebase/auth/web-extension';
+import { GoogleAuthProvider } from 'firebase/auth';
 import { auth } from './firebase';
 
 const doAuthWithGoogle = async () => {
@@ -13,4 +13,4 @@ const doSignOut = () => {
   auth.signOut();
 };
 
-export default { doAuthWithGoogle, doSignOut };
+export { doAuthWithGoogle, doSignOut };

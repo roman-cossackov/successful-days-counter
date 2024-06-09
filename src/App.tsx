@@ -1,8 +1,11 @@
 import Router from './components/Router/Router';
+import { FirebaseContextProvider } from './context/firebaseContext';
 
 const App: React.FC = () => (
   <div className="App">
-    <Router />
+    <FirebaseContextProvider>
+      <Router />
+    </FirebaseContextProvider>
   </div>
 );
 

@@ -1,23 +1,17 @@
-import { useAuth } from 'src/context/authContext';
-
-import Loader from '../../ui/Loader';
-import Head from '../../Head/Head';
+import { useFirebase } from 'src/context/firebaseContext';
+import SignInButton from 'src/components/ui/SignInButton';
+import { Navigate } from 'react-router-dom';
 
 import styles from './IndexPage.module.scss';
 
 const IndexPage = () => {
-  const { userLoggedIn } = useAuth();
+  const { userLoggedIn } = useFirebase()
 
-  if (!userLoggedIn) {
-    return <Loader />;
-  } else {
-    
-  }
 
   return (
     <>
-      <Head title="INDEX PAGE" />
-      <h1>Welcome to Successful Days Counters</h1>
+      {userLoggedIn && <Navigate to={"/main"}/>}
+      <h1 className={styles.title}>Welcome to Successful Days Counter</h1>
       <SignInButton />
     </>
   );
