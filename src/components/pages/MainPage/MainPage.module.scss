@@ -1,10 +1,13 @@
+@import '/src/styles/mixins.scss';
+
 .root {
-  display: flex;
-  justify-content: center;
   height: 100vh;
 }
+
 .content {
-  padding-top: 100px;
+  padding-top: 150px;
+  width: fit-content;
+  margin: 0 auto;
 }
 
 .button {
@@ -12,10 +15,14 @@
 }
 
 .yes {
-  background-color: green;
+  background-color: $colorGreenLight;
 }
 
 .no {
-  background-color: blue;
+  background-color: $colorBlueLight;
+}
+
+.sighOutButton {
+  display: block;
 }
 

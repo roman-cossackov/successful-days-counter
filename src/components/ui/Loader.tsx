@@ -1,7 +1,11 @@
 import InfinityIcon from 'src/assets/icons/InfinityIcon';
 
-const Loader = () => (
-  <div>
+type Props = {
+  className?: string
+}
+
+const Loader = ({ className }: Props) => (
+  <div className={className}>
     <InfinityIcon />
   </div>
 );

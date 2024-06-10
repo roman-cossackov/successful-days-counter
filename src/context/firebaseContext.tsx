@@ -4,7 +4,6 @@ import { User, onAuthStateChanged } from 'firebase/auth';
 import { collection, doc, getDocs, setDoc } from "firebase/firestore"
 
 import { auth, db } from 'src/firebase/firebase';
-import { DatabaseData } from 'src/types/types';
 import { getShortStringFromDate } from 'src/utils/getStringFromDate';
 import { fillDates } from 'src/utils/fillDates';
 
@@ -13,9 +12,10 @@ type FirebaseContextProps = {
   userLoggedIn: boolean;
   loading: boolean;
   data: string | null;
+  setData: React.Dispatch<React.SetStateAction<string | null>> | null;
 };
 
-const AuthContext = createContext<FirebaseContextProps>({ currentUser: null, userLoggedIn: false, loading: true, data: null });
+const AuthContext = createContext<FirebaseContextProps>({ currentUser: null, userLoggedIn: false, loading: true, data: null, setData: null });
 
 type FirebaseContextProviderProps = {
   children: ReactNode;
@@ -42,9 +42,12 @@ const FirebaseContextProvider = ({ children }: FirebaseContextProviderProps) => 
   const initializeDatabase = async (user: User | null) => {
     const querySnapshot = await getDocs(collection(db, "users"))
     const userData = querySnapshot.docs.find(doc => doc.id.slice(5) === user?.uid)
-    if (!userData && user !== null) {
+    const daysData: string = userData?.get("days")
+
+    const docRef = doc(db, "users", `user_${user?.uid}`)
+
+    if (!daysData) {
       try {
-        const docRef = doc(db, "users", `user_${user.uid}`)
         const dateKey = getShortStringFromDate(new Date())
         const dateObject = { [dateKey]: false }
         const docData = {
@@ -56,10 +59,20 @@ const FirebaseContextProvider = ({ children }: FirebaseContextProviderProps) => 
       }
     }
 
+    const parsedDaysData = JSON.parse(daysData)
 
-    const daysData: string = userData?.get("days")
-    const filledDays = fillDates(JSON.parse(daysData))
-    console.log(filledDays)
+    if (!(getShortStringFromDate(new Date()) in parsedDaysData)) {
+      const filledDaysData = fillDates(parsedDaysData)
+      const docData = {
+        days: JSON.stringify(filledDaysData)
+      }
+      try {
+        await setDoc(docRef, docData)
+      } catch (error) {
+        alert(error)
+      }
+    }
+
     setData(daysData)
   }
 
@@ -72,7 +85,8 @@ const FirebaseContextProvider = ({ children }: FirebaseContextProviderProps) => 
     currentUser,
     userLoggedIn,
     loading,
-    data
+    data,
+    setData
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

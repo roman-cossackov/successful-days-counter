@@ -3,16 +3,20 @@ import { doAuthWithGoogle } from 'src/firebase/auth'
 import Button from '../Button'
 import { ButtonTypes } from '../Button/Button'
 
-import styles from './SignInButton.module.scss'
+import styles from './LogInButton.module.scss'
 
-const SignInButton = () => {
+type Props = {
+  className?: string;
+}
+
+const SignInButton = ({ className }: Props) => {
 
   const clickHandler = () => {
     doAuthWithGoogle()
   }
 
   return (
-    <Button onClick={clickHandler} type={ButtonTypes.PRIMARY}>Sign In</Button>
+    <Button className={className} onClick={clickHandler} type={ButtonTypes.PRIMARY}>Log In</Button>
   )
 }
 
