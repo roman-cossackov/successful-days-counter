@@ -1,5 +1,4 @@
 import { useFirebase } from 'src/context/firebaseContext';
-import LogIn from 'src/components/ui/LogInButton';
 import { Navigate } from 'react-router-dom';
 
 import styles from './IndexPage.module.scss';

@@ -16,7 +16,7 @@ const SignInButton = ({ className }: Props) => {
   }
 
   return (
-    <Button className={className} onClick={clickHandler} type={ButtonTypes.PRIMARY}>Log In</Button>
+    <Button className={`${styles.root} ${className}`} onClick={clickHandler} type={ButtonTypes.PRIMARY}>Log In</Button>
   )
 }
 

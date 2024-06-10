@@ -1,7 +1,10 @@
 import { getShortStringFromDate } from "./getStringFromDate";
 
-export const fillDates = (obj) => {
+type Data = {
+  [key: string]: boolean;
+};
 
+export const fillDates = (obj: Data) => {
   const today = new Date();
   const formattedToday = getShortStringFromDate(today);
 
@@ -10,7 +13,9 @@ export const fillDates = (obj) => {
     return new Date(year, month - 1, day);
   });
 
-  const lastDate = new Date(Math.max.apply(null, dates));
+  const timestamps = dates.map(date => date.getTime());
+  const maxTimestamp = Math.max(...timestamps);
+  const lastDate = new Date(maxTimestamp);
   let currentDate = new Date(lastDate);
 
   while (getShortStringFromDate(currentDate) !== formattedToday) {
@@ -26,4 +31,4 @@ export const fillDates = (obj) => {
   }
 
   return obj;
-}
+};

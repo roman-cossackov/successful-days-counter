@@ -5,7 +5,9 @@ type Props = {
 }
 
 const Loader = ({ className }: Props) => (
-  <div className={className}>
+
+  //todo удалить style после добавления стилей из внешних компонентов
+  <div className={className} style={{ display: "flex", justifyContent: "center", paddingTop: "150px" }}>
     <InfinityIcon />
   </div>
 );
