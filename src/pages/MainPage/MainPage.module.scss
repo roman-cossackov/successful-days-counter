@@ -1,0 +1,28 @@
+@import '/src/app/styles/mixins.scss';
+
+.root {
+  height: 100vh;
+}
+
+.content {
+  padding-top: 150px;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.button {
+  margin: 0 auto;
+}
+
+.yes {
+  background-color: $colorGreenLight;
+}
+
+.no {
+  background-color: $colorBlueLight;
+}
+
+.sighOutButton {
+  display: block;
+}
+
