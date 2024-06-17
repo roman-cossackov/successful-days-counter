@@ -11,10 +11,10 @@ export default defineConfig({
       src: path.resolve('src/'),
     },
   },
-  build: {
-    outDir: 'dist',
-    rollupOptions: {
-      input: 'public/index.html',
-    },
-  },
+  // build: {
+  //   outDir: 'dist',
+  //   rollupOptions: {
+  //     input: 'public/index.html',
+  //   },
+  // },
 })
