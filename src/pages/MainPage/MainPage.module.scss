@@ -12,6 +12,10 @@
   margin: 0 auto;
 }
 
+.title {
+  @include font-header;
+}
+
 .button {
   margin: 0 auto;
 }
@@ -29,5 +33,5 @@
 }
 
 .streak {
-  font-size: 20px;
+  @include font-small;
 }
