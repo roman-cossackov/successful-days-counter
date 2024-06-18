@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { useFirebase } from 'src/app/providers/FirebaseProvider';
 import Loader from 'src/shared/ui/Loader';
 import { getShortStringFromDate } from 'src/shared/lib/getStringFromDate';
-import {Button} from 'src/shared/ui/Button';
+import { Button } from 'src/shared/ui/Button';
 import { ButtonTypes } from 'src/shared/ui/Button';
 import { setDaySuccessfulOrNot } from 'src/shared/api/firebaseDatabase';
 import { countLastTrueStreak } from 'src/shared/lib/countLastTrueStreak';
@@ -28,35 +28,15 @@ const MainPage = () => {
     setDaySuccessfulOrNot(currentUser, setData)
   }
 
-  const renderButton = () => {
-    const curVal = parsedData[todaysDate]
-    const buttonContent = curVal ? 'Nah, i changed my mind' : 'Yes'
-
-    return (
-      <Button
-        type={ButtonTypes.PRIMARY}
-        className={styles.button}
-        onClick={handleClick}>{buttonContent}</Button>
-    )
-  }
-
-  const renderStreak = () => {
-    const parsedData = JSON.parse(data)
-    const curStreak = countLastTrueStreak(parsedData)
-    const maxStreak = countMaxTrueStreak(parsedData)
-
-    return (
-      <>
-        <div>Current streak of successful days: {curStreak}</div>
-        <div>max streak: {maxStreak}</div>
-      </>
-    )
-  }
-
-  const todaysDate = getShortStringFromDate(new Date())
   const parsedData = JSON.parse(data)
+  const curStreak = countLastTrueStreak(parsedData)
+  const maxStreak = countMaxTrueStreak(parsedData)
+  const todaysDate = getShortStringFromDate(new Date())
+  const curVal = parsedData[todaysDate]
+  const buttonContent = curVal ? 'Nah, i changed my mind' : 'Yes'
+
   return (
-    <div className={`${styles.root} ${parsedData[todaysDate] ? styles.yes : styles.no}`}>
+    <div className={`${styles.mainPage} ${parsedData[todaysDate] ? styles.yes : styles.no}`}>
       <Button
         className={styles.sighOutButton}
         type={ButtonTypes.SECONDARY}
@@ -64,9 +44,17 @@ const MainPage = () => {
         Log Out
       </Button>
       <div className={styles.content}>
-        {renderStreak()}
+        <div className={styles.streak}>
+          <div>Current streak of successful days: {curStreak}</div>
+          <div>max streak: {maxStreak}</div>
+        </div>
         <h1 className={styles.title}>Did your day go well?</h1>
-        {renderButton()}
+        <Button
+          type={ButtonTypes.PRIMARY}
+          className={styles.button}
+          onClick={handleClick}>
+          {buttonContent}
+        </Button>
       </div>
     </div>
   )

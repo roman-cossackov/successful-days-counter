@@ -1,6 +1,8 @@
 @import '/src/app/styles/mixins.scss';
 
-.root {
+.mainPage {
+  box-sizing: border-box;
+  padding: 10px;
   height: 100vh;
 }
 
@@ -23,6 +25,9 @@
 }
 
 .sighOutButton {
-  display: block;
+  margin-left: auto;
 }
 
+.streak {
+  font-size: 20px;
+}
